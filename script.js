@@ -45,23 +45,55 @@ window.addEventListener('scroll', onScroll, { passive: true });
 window.addEventListener('resize', updateScrollUI, { passive: true });
 updateScrollUI();
 
+/* ===== GALLERY AUTOPLAY (mobile) ===== */
 if (galleryTrack) {
-  let hasAutoNudged = false;
-  const showSwipeHint = () => {
-    if (window.innerWidth > 768 || hasAutoNudged) {
-      return;
-    }
+  let autoSlideTimer;
+  let currentGalleryIdx = 0;
+  let userTouching = false;
 
-    hasAutoNudged = true;
-    window.setTimeout(() => {
-      galleryTrack.scrollBy({ left: 42, behavior: 'smooth' });
-      window.setTimeout(() => {
-        galleryTrack.scrollBy({ left: -42, behavior: 'smooth' });
-      }, 340);
-    }, 900);
+  const galleryCells = () => Array.from(galleryTrack.querySelectorAll('.galerie-cell'));
+
+  const scrollToCell = (idx) => {
+    const cells = galleryCells();
+    if (!cells.length) return;
+    currentGalleryIdx = ((idx % cells.length) + cells.length) % cells.length;
+    galleryTrack.scrollTo({ left: cells[currentGalleryIdx].offsetLeft, behavior: 'smooth' });
   };
 
-  window.addEventListener('load', showSwipeHint);
+  const startGalleryAutoplay = () => {
+    if (window.innerWidth > 768) return;
+    clearInterval(autoSlideTimer);
+    autoSlideTimer = setInterval(() => {
+      if (!userTouching) scrollToCell(currentGalleryIdx + 1);
+    }, 3500);
+  };
+
+  galleryTrack.addEventListener('touchstart', () => {
+    userTouching = true;
+    clearInterval(autoSlideTimer);
+  }, { passive: true });
+
+  galleryTrack.addEventListener('touchend', () => {
+    userTouching = false;
+    clearTimeout(autoSlideTimer);
+    window.setTimeout(startGalleryAutoplay, 4000);
+  }, { passive: true });
+
+  const galerieSec = document.getElementById('galerie');
+  if (galerieSec) {
+    new IntersectionObserver((entries, obs) => {
+      if (entries[0].isIntersecting && window.innerWidth <= 768) {
+        window.setTimeout(() => {
+          galleryTrack.scrollBy({ left: 44, behavior: 'smooth' });
+          window.setTimeout(() => {
+            galleryTrack.scrollBy({ left: -44, behavior: 'smooth' });
+            window.setTimeout(startGalleryAutoplay, 700);
+          }, 360);
+        }, 900);
+        obs.disconnect();
+      }
+    }, { threshold: 0.35 }).observe(galerieSec);
+  }
 }
 
 /* ===== MOBILE MENU ===== */
@@ -193,3 +225,69 @@ if (stats.length) {
 
   stats.forEach((stat) => statsObserver.observe(stat));
 }
+
+/* ===== ROOM IMAGE SLIDERS ===== */
+document.querySelectorAll('.room-image').forEach(roomImage => {
+  const slides = roomImage.querySelectorAll('.room-slide');
+  const dots = roomImage.querySelectorAll('.rslide-dot');
+  const prevBtn = roomImage.querySelector('.rslide-prev');
+  const nextBtn = roomImage.querySelector('.rslide-next');
+  if (slides.length < 2) return;
+
+  let current = 0;
+  let touchStartX = 0;
+
+  const goTo = (idx) => {
+    const next = ((idx % slides.length) + slides.length) % slides.length;
+    if (next === current) return;
+
+    slides[current].classList.add('leaving');
+    slides[current].classList.remove('active');
+    dots[current].classList.remove('active');
+
+    current = next;
+    slides[current].classList.remove('leaving');
+    slides[current].classList.add('active');
+    dots[current].classList.add('active');
+
+    window.setTimeout(() => {
+      slides.forEach(s => s.classList.remove('leaving'));
+    }, 450);
+  };
+
+  if (prevBtn) prevBtn.addEventListener('click', e => { e.stopPropagation(); goTo(current - 1); });
+  if (nextBtn) nextBtn.addEventListener('click', e => { e.stopPropagation(); goTo(current + 1); });
+
+  dots.forEach((dot, i) => dot.addEventListener('click', e => { e.stopPropagation(); goTo(i); }));
+
+  roomImage.addEventListener('touchstart', e => {
+    touchStartX = e.touches[0].clientX;
+  }, { passive: true });
+
+  roomImage.addEventListener('touchend', e => {
+    const diff = touchStartX - e.changedTouches[0].clientX;
+    if (Math.abs(diff) > 40) goTo(current + (diff > 0 ? 1 : -1));
+  }, { passive: true });
+});
+
+/* ===== FACILITY DETAILS TOGGLE ===== */
+document.querySelectorAll('.facilitate-item').forEach(item => {
+  item.addEventListener('click', () => {
+    const isActive = item.classList.contains('active');
+    document.querySelectorAll('.facilitate-item.active').forEach(a => a.classList.remove('active'));
+    if (!isActive) item.classList.add('active');
+  });
+
+  item.addEventListener('keydown', e => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      item.click();
+    }
+  });
+});
+
+document.addEventListener('click', e => {
+  if (!e.target.closest('.facilitate-item')) {
+    document.querySelectorAll('.facilitate-item.active').forEach(a => a.classList.remove('active'));
+  }
+});
