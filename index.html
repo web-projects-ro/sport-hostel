@@ -9,6 +9,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="preload" as="image" href="img1.webp" type="image/webp" fetchpriority="high">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -17,7 +18,12 @@
   <nav id="navbar">
     <div class="container">
       <div class="nav-inner">
-        <a href="#" class="nav-logo"><img src="logo.png" alt="Sport Hostel" class="nav-logo-img"></a>
+        <a href="#" class="nav-logo">
+          <picture>
+            <source srcset="logo.webp" type="image/webp">
+            <img src="logo.png" alt="Sport Hostel" class="nav-logo-img" width="300" height="300" loading="eager" decoding="async">
+          </picture>
+        </a>
         <ul class="nav-links">
           <li><a href="#despre">Despre</a></li>
           <li><a href="#facilitati">Facilități</a></li>
@@ -47,11 +53,17 @@
 
   <section id="hero">
     <div class="hero-photo">
-      <img
-        src="img1.jpeg"
-        alt="Sport Hostel Cluj-Napoca"
-        loading="eager"
-      >
+      <picture>
+        <source srcset="img1.webp" type="image/webp">
+        <img
+          src="img1.jpeg"
+          alt="Sport Hostel Cluj-Napoca"
+          width="1600" height="2133"
+          loading="eager"
+          fetchpriority="high"
+          decoding="async"
+        >
+      </picture>
     </div>
     <div class="hero-overlay-dark"></div>
     <div class="hero-overlay-gold"></div>
@@ -90,7 +102,10 @@
       <div class="despre-inner">
         <div class="despre-image-wrap reveal">
           <div class="despre-img">
-            <img src="img2.jpg" alt="Sport Hostel — cameră">
+            <picture>
+              <source srcset="img2.webp" type="image/webp">
+              <img src="img2.jpg" alt="Sport Hostel — cameră" width="1100" height="1467" loading="lazy" decoding="async">
+            </picture>
           </div>
           <div class="despre-img-accent"></div>
         </div>
@@ -152,8 +167,8 @@
         <div class="room-card reveal">
           <div class="room-image">
             <div class="room-slider">
-              <div class="room-slide active"><img src="cameradublacomuna1.jpeg" alt="Cameră dublă comună — poza 1"></div>
-              <div class="room-slide"><div class="room-slide-placeholder"><span>📸</span><small>Foto disponibilă curând</small></div></div>
+              <div class="room-slide active"><picture><source srcset="cameradublacomuna1.webp" type="image/webp"><img src="cameradublacomuna1.jpeg" alt="Cameră dublă comună — poza 1" width="800" height="1067" loading="lazy" decoding="async"></picture></div>
+              <div class="room-slide"><picture><source srcset="cameradublacomuna2.webp" type="image/webp"><img src="cameradublacomuna2.jpeg" alt="Cameră dublă comună — poza 2" width="800" height="1063" loading="lazy" decoding="async"></picture></div>
             </div>
             <div class="room-slider-nav">
               <button class="rslide-prev" aria-label="Poza anterioară">&#8249;</button>
@@ -176,8 +191,8 @@
         <div class="room-card reveal" style="transition-delay:0.1s">
           <div class="room-image">
             <div class="room-slider">
-              <div class="room-slide active"><img src="cameratripla.jpeg" alt="Cameră triplă — poza 1"></div>
-              <div class="room-slide active"><img src="cameratripla2.jpeg" alt="Cameră triplă — poza 2"></div>
+              <div class="room-slide active"><picture><source srcset="cameratripla.webp" type="image/webp"><img src="cameratripla.jpeg" alt="Cameră triplă — poza 1" width="800" height="1422" loading="lazy" decoding="async"></picture></div>
+              <div class="room-slide"><picture><source srcset="cameratripla2.webp" type="image/webp"><img src="cameratripla2.jpeg" alt="Cameră triplă — poza 2" width="800" height="1056" loading="lazy" decoding="async"></picture></div>
             </div>
             <div class="room-slider-nav">
               <button class="rslide-prev" aria-label="Poza anterioară">&#8249;</button>
@@ -201,8 +216,8 @@
         <div class="room-card reveal" style="transition-delay:0.2s">
           <div class="room-image">
             <div class="room-slider">
-              <div class="room-slide active"><img src="cameratriplacomfort.jpeg" alt="Cameră triplă comfort — poza 1"></div>
-              <div class="room-slide active"><img src="cameratriplacomfort2.jpeg" alt="Cameră triplă comfort — poza 2"></div>
+              <div class="room-slide active"><picture><source srcset="cameratriplacomfort.webp" type="image/webp"><img src="cameratriplacomfort.jpeg" alt="Cameră triplă comfort — poza 1" width="800" height="1077" loading="lazy" decoding="async"></picture></div>
+              <div class="room-slide"><picture><source srcset="cameratriplacomfort2.webp" type="image/webp"><img src="cameratriplacomfort2.jpeg" alt="Cameră triplă comfort — poza 2" width="800" height="915" loading="lazy" decoding="async"></picture></div>
             </div>
             <div class="room-slider-nav">
               <button class="rslide-prev" aria-label="Poza anterioară">&#8249;</button>
@@ -225,8 +240,8 @@
         <div class="room-card reveal" style="transition-delay:0.3s">
           <div class="room-image">
             <div class="room-slider">
-              <div class="room-slide active"><img src="image00009.jpeg" alt="Campare la cort pe terasă — poza 1"></div>
-              <div class="room-slide"><div class="room-slide-placeholder"><span>📸</span><small>Foto disponibilă curând</small></div></div>
+              <div class="room-slide active"><picture><source srcset="image00009.webp" type="image/webp"><img src="image00009.jpeg" alt="Campare la cort pe terasă — poza 1" width="800" height="1067" loading="lazy" decoding="async"></picture></div>
+              <div class="room-slide"><picture><source srcset="cort2.webp" type="image/webp"><img src="cort2.jpeg" alt="Campare la cort pe terasă — poza 2" width="800" height="823" loading="lazy" decoding="async"></picture></div>
             </div>
             <div class="room-slider-nav">
               <button class="rslide-prev" aria-label="Poza anterioară">&#8249;</button>
@@ -262,37 +277,37 @@
       <div class="galerie-grid reveal" style="transition-delay:0.1s">
 
         <div class="galerie-cell gc-wide">
-          <img src="image00005.jpeg" alt="Sport Hostel — interior">
+          <picture><source srcset="image00005.webp" type="image/webp"><img src="image00005.jpeg" alt="Sport Hostel — interior" width="900" height="1200" loading="lazy" decoding="async"></picture>
           <div class="galerie-overlay"><span></span></div>
         </div>
 
         <div class="galerie-cell">
-          <img src="cort.jpeg" alt="Sport Hostel — cameră">
+          <picture><source srcset="cort.webp" type="image/webp"><img src="cort.jpeg" alt="Sport Hostel — cameră" width="900" height="1200" loading="lazy" decoding="async"></picture>
           <div class="galerie-overlay"><span></span></div>
         </div>
 
         <div class="galerie-cell">
-          <img src="image00014.jpeg" alt="Sport Hostel — detaliu">
+          <picture><source srcset="image00014.webp" type="image/webp"><img src="image00014.jpeg" alt="Sport Hostel — detaliu" width="900" height="1200" loading="lazy" decoding="async"></picture>
           <div class="galerie-overlay"></div>
         </div>
 
         <div class="galerie-cell">
-          <img src="image00006.jpeg" alt="Sport Hostel — zonă comună">
+          <picture><source srcset="image00006.webp" type="image/webp"><img src="image00006.jpeg" alt="Sport Hostel — zonă comună" width="900" height="1200" loading="lazy" decoding="async"></picture>
           <div class="galerie-overlay"><span></span></div>
         </div>
 
         <div class="galerie-cell">
-          <img src="image00021.jpeg" alt="Sport Hostel — cameră privată">
+          <picture><source srcset="image00021.webp" type="image/webp"><img src="image00021.jpeg" alt="Sport Hostel — cameră privată" width="900" height="1200" loading="lazy" decoding="async"></picture>
           <div class="galerie-overlay"><span></span></div>
         </div>
 
         <div class="galerie-cell gc-wide">
-          <img src="image00015.jpeg" alt="Sport Hostel — interior">
+          <picture><source srcset="image00015.webp" type="image/webp"><img src="image00015.jpeg" alt="Sport Hostel — interior" width="900" height="1200" loading="lazy" decoding="async"></picture>
           <div class="galerie-overlay"><span></span></div>
         </div>
 
         <div class="galerie-cell">
-          <img src="image00019.jpeg" alt="Sport Hostel — detaliu interior">
+          <picture><source srcset="image00019.webp" type="image/webp"><img src="image00019.jpeg" alt="Sport Hostel — detaliu interior" width="900" height="1200" loading="lazy" decoding="async"></picture>
           <div class="galerie-overlay"><span></span></div>
         </div>
 
